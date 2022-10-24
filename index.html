@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night-eighties.min.css"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<script src="script.js" defer></script>
+		<title>Callstack and event loop animation</title>
+	</head>
+	<body>
+		<main>
+			<section class="grid">
+				<section class="first">
+					<code>
+						<pre id="code" class="prettyprint"></pre>
+					</code>
+				</section>
+				<section class="internals">
+					<section class="callstack">
+						<h3>Callstack</h3>
+						<section id="callstack"></section>
+					</section>
+					<section class="event-queue">
+						<h3>Event Queue</h3>
+						<section id="event-queue"></section>
+					</section>
+				</section>
+			</section>
+			<button id="run">Run code</button>
+		</main>
+	</body>
+</html>
