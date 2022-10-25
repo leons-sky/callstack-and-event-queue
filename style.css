@@ -4,7 +4,7 @@ body {
 }
 
 pre {
-	display: block;
+	display: inline-block;
 	margin: 0;
 }
 
@@ -34,6 +34,8 @@ main {
 
 .line-num {
 	background-color: #353535;
+	user-select: none;
+	margin-right: 0.2rem;
 }
 
 .line-num .lit {
@@ -42,7 +44,10 @@ main {
 
 .internals {
 	padding: 1rem;
-	display: flex;
+	display: grid;
+	grid-template-columns: auto 3fr;
+	grid-template-rows: 1fr 3fr;
+	gap: 1rem;
 }
 
 h3 {
@@ -50,7 +55,8 @@ h3 {
 }
 
 #callstack,
-#event-queue {
+#event-queue,
+#console {
 	width: 100%;
 	height: 100%;
 }
@@ -68,20 +74,28 @@ h3 {
 	flex-wrap: wrap;
 }
 
+#console {
+	resize: none;
+	height: calc(100% - 1rem);
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
 .callstack {
-	width: 18rem;
+	grid-area: 1 / 1 / span 2 / span 1;
 	text-align: center;
 	border: black 3px solid;
-	margin-right: 1rem;
 	padding: 0.5rem;
+	min-width: 10rem;
 }
 
 .event-queue {
 	border: black 3px solid;
+	padding: 1rem;
 	min-height: 7rem;
 	height: min-content;
-	width: 100%;
-	padding: 1rem;
+	min-width: calc(100% - 20rem);
 }
 
 .callstack-item {
@@ -116,6 +130,28 @@ h3 {
 	margin: 0.5rem;
 }
 
+.console {
+	border: black 3px solid;
+	padding: 1rem;
+}
+
+.console-item {
+	display: inline-block;
+	width: 100%;
+	height: min-content;
+	text-align: left;
+	/* background: #c385e0; */
+	background: #2d2d2d;
+	font-size: 1rem;
+	color: #ccc;
+}
+
 .highlight {
+	display: inline-block;
+	width: 100%;
+	background-color: #db4646;
+}
+
+.highlight .line-num {
 	background-color: #db4646;
 }

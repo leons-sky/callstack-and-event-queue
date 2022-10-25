@@ -43,7 +43,7 @@ takeOrder("Coffee")
 `
 
 document.getElementById("code").innerHTML = CODE.trim().split("\n").reduce((str, line, index) => {
-    str += `<span class="line-num line${index + 1}">&nbsp&nbsp&nbsp${String(index + 1).padStart(2, " ")}&nbsp&nbsp&nbsp</span>&nbsp` + line + "\n"
+    str += `<span class="line${index + 1}"><span class="line-num">&nbsp&nbsp&nbsp${String(index + 1).padStart(2, " ")}&nbsp&nbsp&nbsp</span>` + line + "</span>\n"
     return str
 }, "")
 
@@ -60,6 +60,19 @@ function highlightLine(num) {
     const line = document.getElementsByClassName(`line${num}`)[0]
     line.classList.add("highlight")
     currentHighlightedLine = line
+}
+
+const consoleEl = document.getElementById("console")
+async function log(text) {
+    await addToCallstack(`console.log(...)`)
+    console.log(text);
+    let node = document.createElement("div")
+    node.classList.add("console-item")
+    let codeElement = document.createElement("code")
+    codeElement.append("> " + text)
+    node.append(codeElement)
+    consoleEl.appendChild(node)
+    await popCallstack()
 }
 
 const callstack = document.getElementById("callstack")
@@ -122,9 +135,7 @@ async function runCode() {
                 preparationTime = 500;
                 break;
             default:
-                await addToCallstack(`console.log(...)`)
-                console.log("We don't have that");
-                await popCallstack()
+                await log("We don't have that");
                 return;
         }
 
@@ -133,9 +144,7 @@ async function runCode() {
         setTimeout(async () => {
             await popEventQueue()
             highlightLine(22)
-            await addToCallstack(`console.log(...)`)
-            console.log("Food prepped - " + itemName);
-            await popCallstack()
+            await log("Food prepped - " + itemName);
             highlightLine(23)
             await addToCallstack(`callback(itemName)`)
             await callback(itemName);
@@ -148,9 +157,7 @@ async function runCode() {
 
     async function takeOrder(itemName) {
         highlightLine(28)
-        await addToCallstack(`console.log(...)`)
-        console.log(itemName + ", is that correct?");
-        await popCallstack()
+        await log(itemName + ", is that correct?");
         highlightLine(29)
         await addToCallstack(`submitOrder(itemName)`)
         await submitOrder(itemName);
@@ -159,9 +166,7 @@ async function runCode() {
 
     async function submitOrder(itemName) {
         highlightLine(33)
-        await addToCallstack(`console.log(...)`)
-        console.log("taking " + itemName + " to Kitchen");
-        await popCallstack()
+        await log("taking " + itemName + " to Kitchen");
         highlightLine(34)
         await addToCallstack(`preparation(itemName, serveOrder)`)
         await preparation(itemName, serveOrder);
@@ -170,9 +175,7 @@ async function runCode() {
 
     async function serveOrder(itemName) {
         highlightLine(38)
-        await addToCallstack(`console.log(itemName)`)
-        console.log(itemName);
-        await popCallstack()
+        await log(itemName);
         removeHighlight()
     }
 
